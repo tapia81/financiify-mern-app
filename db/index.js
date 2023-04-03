@@ -1,16 +1,11 @@
-const moongoose = require("mongoose");
+const mongoose = require("mongoose");
 const express = require("express");
 const path = require("path");
 const app = express();
 
-const { default: mongoose } = require("mongoose");
-
 require("dotenv").config();
 
-let MONGODB_URL =
-  process.env.PROD_MONGODB ||
-  process.env.MONGODB_URL ||
-  "mongodb://127.0.0.1:27017/recipieDB";
+let MONGODB_URL = process.env.PROD_MONGODB || process.env.MONGODB_URL;
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

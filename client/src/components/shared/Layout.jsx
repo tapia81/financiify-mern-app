@@ -1,11 +1,22 @@
 import { Navigation } from "./Navigation";
 import { Footer } from "./Footer";
+import { Box } from "@mui/material";
 export const Layout = (props) => {
   return (
-    <div className="layout-container">
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        minHeight: "100vh",
+        maxWidth: "100vw",
+        contain: "paint",
+      }}
+    >
       <Navigation />
-      <main>{props.children}</main>
+      <Box sx={{ flexGrow: 2 }}>{props.children}</Box>
       <Footer />
-    </div>
+    </Box>
   );
 };

@@ -1,28 +1,51 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-
-import { LandingPage } from "./components/routes/LandingPage";
-import { Home } from "./components/routes/Home";
-import { FinancialLiteracy } from "./components/routes/FinancialLiteracy";
-import { Dashboard } from "./components/routes/Dashboard";
-import { Stock } from "./components/routes/Stock";
-// import { PurchaseStock } from "./components/routes/PurchaseStock";
+import { Home } from "./screens/Home";
+import { Dashboard } from "./screens/Dashboard";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#003780",
+        light: "#2D95EC",
+        dark: "#002659",
+      },
+      secondary: {
+        main: "#804900",
+        light: "#996D33",
+        dark: "#593300",
+      },
+      background: {
+        default: "#335F99",
+      },
+    },
+    typography: {
+      fontFamily: [
+        "poppins",
+        "Roboto",
+        "sans-serif",
+        '"Helvetica Neue"',
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Arial",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+    },
+  });
+
   return (
-    <div className="App">
-      <Routes>
-        {/* <Route path="/" element={<LandingPage />}></Route> */}
-        <Route path="/" element={<Home />}></Route>
-        {/* <Route path="/learn-more" element={<FinancialLiteracy />}></Route> */}
-        <Route path="/dashboard" element={<Dashboard />}></Route>
-        <Route path="/dashboard/:id" element={<Stock />}></Route>
-        {/* <Route
-          path="/dashboard/create-stock"
-          element={<PurchaseStock />}
-        ></Route> */}
-      </Routes>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 
