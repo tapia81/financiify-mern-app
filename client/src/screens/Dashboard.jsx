@@ -54,7 +54,7 @@ export const Dashboard = () => {
 
   const fetchAccountDetails = async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URI}/api/users/6421fa239f2813a6c6ff0dad`
+      `${process.env.REACT_APP_API_URL}/api/users/6421fa239f2813a6c6ff0dad`
     );
     console.log(response.data.buying_power);
     setBuyingPower(response.data.buying_power);
@@ -63,7 +63,7 @@ export const Dashboard = () => {
 
   const updateAccountValue = async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URI}/api/users/6421fa239f2813a6c6ff0dad/account-value`
+      `${process.env.REACT_APP_API_URL}/api/users/6421fa239f2813a6c6ff0dad/account-value`
     );
     const val = response.data.account_value;
     setAccountValue(val.toFixed(2));

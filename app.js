@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 3001;
 const corsOptions = {
   "Access-Control-Allow-Origin": `http://localhost:${PORT}`,
 };
-app.use(cors(corsOptions));
+app.use(cors());
+// app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
