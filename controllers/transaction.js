@@ -4,25 +4,19 @@ const { Stock } = require("../models/stock");
 
 async function buyingTransaction(req, res) {
   const { userId } = req.params;
-  const {
-    inputtedType,
-    inputtedStock,
-    inputtedShares,
-    marketPrice,
-    name,
-    symbol,
-  } = req.body;
+  const { transactionType, inputtedStock, shares, marketPrice, name, symbol } =
+    req.body;
 
   try {
     // return console.log(
-    //   inputtedType,
+    //   transactionType,
     //   inputtedStock,
-    //   inputtedShares,
+    //   shares,
     //   marketPrice,
     //   name,
     //   symbol
     // );
-    if (inputtedType !== "buy" && inputtedType !== "Buy") {
+    if (transactionType !== "buy" && transactionType !== "Buy") {
       return res.status(400).json({
         message: "Transaction type is not set to buy!!!",
       });
@@ -30,7 +24,7 @@ async function buyingTransaction(req, res) {
 
     let newStock;
     let user;
-    let total = marketPrice * inputtedShares;
+    let total = marketPrice * shares;
 
     const checkForStock = await Stock.findOne({
       symbol: symbol,
@@ -59,10 +53,10 @@ async function buyingTransaction(req, res) {
     }
 
     const transaction = await Transaction.create({
-      type: inputtedType,
+      type: transactionType,
       symbol: symbol,
       stock: newStock ? newStock.id : inputtedStock,
-      shares: inputtedShares,
+      shares: shares,
       price: marketPrice,
       total: total,
     });
@@ -117,18 +111,18 @@ async function buyingTransaction(req, res) {
 
 async function sellingTransaction(req, res) {
   const { userId } = req.params;
-  const { inputtedType, inputtedStock, inputtedShares, marketPrice, symbol } =
+  const { transactionType, inputtedStock, shares, marketPrice, symbol } =
     req.body;
 
   try {
     // return console.log(
-    //   inputtedType,
+    //   transactionType,
     //   inputtedStock,
-    //   inputtedShares,
+    //   shares,
     //   marketPrice,
     //   symbol
     // );
-    if (inputtedType !== "sell" && inputtedType !== "Sell") {
+    if (transactionType !== "sell" && transactionType !== "Sell") {
       return res.status(400).json({
         message: "Transaction type is not set to sell!!!",
       });
@@ -141,10 +135,10 @@ async function sellingTransaction(req, res) {
       const stockId = userStock.id;
       const stockShares = userStock.shares;
       let newAmount;
-      let total = marketPrice * inputtedShares;
+      let total = marketPrice * shares;
 
-      if (inputtedShares <= stockShares) {
-        newAmount = stockShares - inputtedShares;
+      if (shares <= stockShares) {
+        newAmount = stockShares - shares;
       } else {
         return res
           .status(400)
@@ -152,10 +146,10 @@ async function sellingTransaction(req, res) {
       }
 
       const transaction = await Transaction.create({
-        type: inputtedType,
+        type: transactionType,
         symbol: symbol,
         stock: inputtedStock,
-        shares: inputtedShares,
+        shares: shares,
         price: marketPrice,
         total: total,
       });

@@ -1,45 +1,105 @@
 import React from "react";
-
-export const Fundamentals = ({
+import bankIcon from "../../assets/icons/bank.png";
+import taxesIcon from "../../assets/icons/taxes.png";
+import stocksIcon from "../../assets/icons/stocks.png";
+import cryptoIcon from "../../assets/icons/crypto.png";
+import bankCardImage from "../../assets/cardImages/front-shot-of-bank.jpg";
+import taxCardImage from "../../assets/cardImages/pile-of-tax-forms.jpg";
+import stockCardImage from "../../assets/cardImages/stock-graph.jpg";
+import cryptoCardImage from "../../assets/cardImages/pile-of-crypto-coins.jpg";
+import {
   Box,
-  Typography,
   Button,
-  financialFundamentalTopics,
+  Typography,
   Card,
   CardActions,
   CardContent,
   CardMedia,
-  column,
-  row,
-  sectionBox,
-  sectionHeader,
-  sectionSubHeader,
-  imageBox,
-  grouped,
-  btnHeader,
-  btn,
+} from "@mui/material";
+
+export const Fundamentals = ({
+  arrowIcon,
+  executeScroll,
+  fundamentalsRef,
+  startTradingRef,
+  defaultFlexStyles,
+  sectionHeaderStyles,
+  headerTextStyles,
+  arrowButtonStyles,
 }) => {
+  //imported props path ==> screens/home.jsx
+
+  //Initializing topic cards content.
+  const financialFundamentalTopics = [
+    {
+      topicName: "Bank Account Types",
+      topicImage: bankCardImage,
+      imageAlt: "front of bank building",
+      icon: bankIcon,
+      iconAlt: "bank",
+      cardText:
+        "Accounts offered by banks, such as checking accounts, savings accounts, money market accounts, and certificates of deposit (CDs).",
+    },
+    {
+      topicName: "Taxes",
+      topicImage: taxCardImage,
+      imageAlt: "pile of multiple forms for 2019 tax year",
+      icon: taxesIcon,
+      iconAlt: "tax check",
+      cardText:
+        "Paying taxes to the government based on your income and other financial factors. It involves understanding concepts such as taxable income, deductions, credits, and the various tax forms and deadlines.",
+    },
+    {
+      topicName: "Stocks",
+      topicImage: stockCardImage,
+      imageAlt: "stock graph of highs and lows, no actual numbers",
+      icon: stocksIcon,
+      iconAlt: "stock graph",
+      cardText:
+        "Investing in stocks involves buying and selling shares of a company with the aim of generating a return on investment.",
+    },
+    {
+      topicName: "Crypto",
+      topicImage: cryptoCardImage,
+      imageAlt: "physical version of various crypto coins in a pile",
+      icon: cryptoIcon,
+      iconAlt: "physical coin & crypto coin",
+      cardText:
+        "Short for cryptocurrency, this refers to digital currencies that use cryptography for security. Cryptocurrencies, such as Bitcoin, Ethereum, and Litecoin, operate on decentralized networks called blockchains.",
+    },
+  ];
+
+  //..........................Start of CSS Objects............................//
+  const cardActionText = {
+    textAlign: "left",
+    selfAlign: "start",
+    contain: "content",
+    overflow: "hidden",
+  };
+  //..........................End of CSS Objects..............................//
+
   return (
-    <Box sx={[sectionBox]}>
-      <Typography
-        sx={[
-          sectionHeader,
-          {
-            padding: {
-              xs: "10vw 3vw 3vw 3vw",
-              sm: "5vw 15vw 3vw 15vw",
-            },
-            width: { xs: "100vw", sm: "100vw", md: "100vw" },
-          },
-        ]}
-      >
-        Learning the Fundamentals of Stock Trading
+    <Box
+      ref={fundamentalsRef}
+      sx={[sectionHeaderStyles, { bgcolor: "#FFF9EC" }]}
+    >
+      <Typography variant="h2" sx={headerTextStyles}>
+        Fundamentals of Financial Literacy
       </Typography>
+
       <Box
         sx={[
-          grouped,
+          defaultFlexStyles,
           {
-            gap: { xs: 3, md: 5 },
+            flexDirection: { md: "row" },
+            flexWrap: { md: "wrap" },
+            gap: { xs: "10vw", md: "5vw", lg: "1vw" },
+            margin: {
+              xs: "20px 0",
+              sm: "50px 0",
+              lg: "50px 10px",
+              xl: "70px 20px",
+            },
           },
         ]}
       >
@@ -48,85 +108,117 @@ export const Fundamentals = ({
             <Card
               key={key}
               sx={{
-                maxWidth: { xs: "86vw", sm: "50vw", md: "35vw", lg: "30vw" },
-                margin: { md: "0vw 1vw" },
+                margin: { xs: "0vw 5vw", md: "0vw 0vw" },
+                height: {
+                  xs: "450px",
+                  sm: "700px",
+                  md: "550px",
+                  lg: "500px",
+                  xl: "570px",
+                },
+                maxWidth: {
+                  xs: "86%",
+                  sm: "75%",
+                  md: "40%",
+                  lg: "23.5%",
+                },
               }}
             >
               <CardMedia
-                sx={{ height: 200 }}
+                sx={{
+                  height: { xs: "40%", lg: "35%" },
+                  contain: "content",
+                }}
                 image={topic.topicImage}
                 title={topic.topicName}
                 alt={topic.imageAlt}
               />
-              <CardContent>
+
+              <CardContent
+                sx={[
+                  defaultFlexStyles,
+                  {
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+                    padding: { sm: "4% 4%", lg: "7% 7%" },
+                    height: { xs: "60%", lg: "65%" },
+                  },
+                ]}
+              >
                 <Box
                   component="img"
                   sx={{
-                    maxHeight: { xs: 250, sm: "50vw" },
-                    maxWidth: { xs: "10vw", sm: "4vw" },
+                    height: {
+                      xs: "35px",
+                      sm: "60px",
+                      md: "40px",
+                      lg: "30px",
+                      xl: "50px",
+                    },
+                    maxHeight: { xs: "250px", sm: "50vw" },
                   }}
                   src={topic.icon}
                   alt={topic.iconAlt}
                 ></Box>
+
                 <Typography
-                  gutterBottom
+                  variant="h5"
                   component="div"
                   sx={[
-                    sectionSubHeader,
                     {
                       textAlign: "start",
-                      fontSize: {
-                        xl: "2rem",
-                      },
+                      padding: "2% 0",
+                      height: "auto",
+                      contain: "content",
                     },
                   ]}
                 >
                   {topic.topicName}
                 </Typography>
+
                 <Typography
-                  variant="body2"
+                  variant="h6"
                   color="text.secondary"
                   sx={[
-                    sectionSubHeader,
+                    cardActionText,
                     {
-                      textAlign: "start",
-                      fontSize: {
-                        sm: "1.2rem",
-                        xl: "1.3rem",
-                      },
+                      height: { xs: "50%", lg: "65%" },
                     },
                   ]}
                 >
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
+                  {topic.cardText}
                 </Typography>
+
+                <CardActions
+                  sx={{
+                    margin: { xs: "6% 0 0 0", sm: "6% 0 0 0" },
+                    padding: 0,
+                    height: "5%",
+                    width: "100%",
+                  }}
+                >
+                  {/* <Button size="small" sx={cardActionText}>
+                    Share
+                  </Button> */}
+                  <Button size="small" sx={cardActionText}>
+                    <Typography variant="h4" sx={{ fontWeight: "600" }}>
+                      Learn More
+                    </Typography>
+                  </Button>
+                </CardActions>
               </CardContent>
-              <CardActions>
-                <Button
-                  size="small"
-                  sx={{
-                    fontSize: {
-                      xl: "1.3rem",
-                    },
-                  }}
-                >
-                  Share
-                </Button>
-                <Button
-                  size="small"
-                  sx={{
-                    fontSize: {
-                      xl: "1.3rem",
-                    },
-                  }}
-                >
-                  Learn More
-                </Button>
-              </CardActions>
             </Card>
           );
         })}
       </Box>
+
+      {/* Arrow svg to call executeScroll function onclick.*/}
+      <Box
+        component="img"
+        src={arrowIcon}
+        onClick={(e) => executeScroll(e, startTradingRef)}
+        sx={arrowButtonStyles}
+      ></Box>
     </Box>
   );
 };

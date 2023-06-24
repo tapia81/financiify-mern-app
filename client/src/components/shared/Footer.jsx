@@ -39,9 +39,10 @@ export const Footer = () => {
         alignItems: "center",
         minHeight: { xs: "15vw", lg: "3vw" },
         width: { xs: "100vw", xl: "25vw" },
+        border: "solid purple",
       }}
     >
-      {/* {externalLinks.map((link, key) => {
+      {externalLinks.map((link, key) => {
         return (
           <Box
             key={key}
@@ -93,7 +94,7 @@ export const Footer = () => {
             </a>
           </Box>
         );
-      })} */}
+      })}
     </Box>
   );
 };

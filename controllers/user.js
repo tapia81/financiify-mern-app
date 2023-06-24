@@ -20,6 +20,25 @@ async function createUser(req, res) {
   }
 }
 
+// async function getUser(req, res) {
+//   const { email, password } = req.body;
+//   try {
+//     if (!email || !password) {
+//       res
+//         .status(400)
+//         .json({ error: "Can't leave email or password field blank" });
+//     }
+
+//     const user = await User.findOne({ email, password });
+//     if (user) {
+//       console.log(user);
+//     }
+//     return res
+//       .status(400)
+//       .json({ error: "No user found with that email and password" });
+//   } catch (err) {}
+// }
+
 async function getUserWithStocksAndTransactions(req, res) {
   const { userId } = req.params;
 
@@ -68,6 +87,7 @@ async function getAccountValue(req, res) {
 
 module.exports = {
   createUser,
+  // getUser,
   getUserWithStocksAndTransactions,
   getAccountValue,
 };

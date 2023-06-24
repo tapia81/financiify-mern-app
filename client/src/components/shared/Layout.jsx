@@ -8,15 +8,17 @@ export const Layout = (props) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
-        alignItems: "center",
         minHeight: "100vh",
-        maxWidth: "100vw",
+        width: "100vw",
+        maxWidth: "100%",
+        padding: 0,
+        margin: 0,
         contain: "paint",
       }}
     >
       <Navigation />
-      <Box sx={{ flexGrow: 2 }}>{props.children}</Box>
-      <Footer />
+      <Box>{props.children}</Box>
+      {/* <Footer /> */}
     </Box>
   );
 };

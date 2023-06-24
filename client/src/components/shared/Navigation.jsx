@@ -1,16 +1,16 @@
 import * as React from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { AppBar, Box, Drawer, Stack, Toolbar, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 export const Navigation = () => {
+  const location = useLocation();
   const [open, setState] = useState(false);
   const pages = [
     { pageName: "Home", pagePath: "/" },
     { pageName: "Dashboard", pagePath: "/dashboard" },
-    // { pageName: "Other", pagePath: "#" },
   ];
 
   const toggleDrawer = (open) => (event) => {
@@ -23,18 +23,30 @@ export const Navigation = () => {
     setState(open);
   };
 
+  const menuItems = {
+    color: "black",
+    fontWeight: 600,
+    fontSize: { xs: "1.5rem", sm: "2.5rem", md: "1.5rem" },
+    marginTop: { md: "10px" },
+    textDecoration: "none",
+  };
   return (
     <AppBar position="static" display="block">
       <Toolbar
         sx={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: { xs: "flex-start", md: "space-between" },
+          justifyContent: {
+            xs: "center",
+            md: "space-between",
+            lg: "space-evenly",
+          },
           alignItems: "center",
-          height: { xs: "15vw", sm: "10vw", sm: "5vw", xl: "1vw" },
+          gap: { lg: "65%" },
+          height: { xs: "15vw", sm: "10vw", md: "5vw", xl: "1vw" },
           margin: 0,
           padding: 0,
-          backgroundColor: "white",
+          backgroundColor: location.pathname === "/" ? "#EDF2FB" : "white",
         }}
       >
         <IconButton
@@ -45,26 +57,30 @@ export const Navigation = () => {
           sx={{
             position: "absolute",
             display: { xs: "flex", md: "none" },
+            left: 0,
             marginLeft: { xs: "2vw" },
             zIndex: 2,
           }}
         >
-          <MenuIcon />
+          <MenuIcon fontSize="large" />
         </IconButton>
 
-        <Typography
-          sx={{
-            position: { xs: "absolute", sm: "static" },
-            textAlign: "center",
-            width: { xs: "100vw", md: "auto" },
-            zIndex: { xs: 1 },
-            color: "black",
-            fontWeight: "bold",
-            fontSize: { xs: "1.5rem", sm: "2rem" },
-          }}
-        >
-          Financiify
-        </Typography>
+        <NavLink to="/">
+          <Typography
+            variant="h1"
+            sx={{
+              textAlign: "center",
+              width: { xs: "auto", md: "auto" },
+              zIndex: { xs: 1 },
+              color: "black",
+              fontWeight: "bold",
+              fontSize: { xs: "1.5rem", sm: "2.5rem", md: "2rem" },
+              marginTop: "10px",
+            }}
+          >
+            Financiify
+          </Typography>
+        </NavLink>
 
         <Drawer
           anchor="left"
@@ -72,6 +88,7 @@ export const Navigation = () => {
           open={open}
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
+          onClick={toggleDrawer(false)}
         >
           <Box
             sx={{
@@ -80,15 +97,19 @@ export const Navigation = () => {
               width: 1,
               display: "flex",
               flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100vw",
             }}
           >
             <NavLink to="/">
-              <Typography sx={{ color: "black", fontWeight: 600 }}>
+              <Typography sx={menuItems} onClick={toggleDrawer(false)}>
                 Home
               </Typography>
             </NavLink>
+
             <NavLink to="/dashboard">
-              <Typography sx={{ color: "black", fontWeight: 600 }}>
+              <Typography sx={menuItems} onClick={toggleDrawer(false)}>
                 Dashboard
               </Typography>
             </NavLink>
@@ -102,11 +123,14 @@ export const Navigation = () => {
         >
           {pages.map((page, key) => {
             return (
-              <NavLink to={page.pagePath} key={key}>
-                <Typography
-                  variant="h6"
-                  sx={{ color: "black", fontWeight: 600 }}
-                >
+              <NavLink
+                to={page.pagePath}
+                key={key}
+                sx={{
+                  textDecoration: "none",
+                }}
+              >
+                <Typography variant="h1" sx={menuItems}>
                   {page.pageName}
                 </Typography>
               </NavLink>
